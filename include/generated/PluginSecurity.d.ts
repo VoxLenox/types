@@ -23,6 +23,8 @@ interface Services {
     AssetQualityService: AssetQualityService;
     AssetService: AssetService;
     AudioFocusService: AudioFocusService;
+    AuroraScriptService: AuroraScriptService;
+    AuroraService: AuroraService;
     AvatarChatService: AvatarChatService;
     AvatarCreationService: AvatarCreationService;
     AvatarEditorService: AvatarEditorService;
@@ -65,9 +67,11 @@ interface Services {
     DebugSettings: DebugSettings;
     DeferredAssetManagerService: DeferredAssetManagerService;
     DesignFoundationsService: DesignFoundationsService;
+    DeviceDisplayService: DeviceDisplayService;
     DeviceIdService: DeviceIdService;
     DraggerService: DraggerService;
     EditableService: EditableService;
+    EditorSourceService: EditorSourceService;
     EncodingService: EncodingService;
     EventIngestService: EventIngestService;
     ExampleV2Service: ExampleV2Service;
@@ -108,6 +112,7 @@ interface Services {
     InstanceFileSyncService: InstanceFileSyncService;
     InternalMessagingService: InternalMessagingService;
     InternalMessagingServiceVerifier: InternalMessagingServiceVerifier;
+    InternalSyncService: InternalSyncService;
     IXPService: IXPService;
     JointsService: JointsService;
     KeyframeSequenceProvider: KeyframeSequenceProvider;
@@ -122,6 +127,7 @@ interface Services {
     LogReporterService: LogReporterService;
     LogService: LogService;
     LuaSettings: LuaSettings;
+    LuauExpressionService: LuauExpressionService;
     LuauScriptAnalyzerService: LuauScriptAnalyzerService;
     MarketplaceService: MarketplaceService;
     MatchmakingService: MatchmakingService;
@@ -149,6 +155,7 @@ interface Services {
     PerformanceControlService: PerformanceControlService;
     PhysicsService: PhysicsService;
     PhysicsSettings: PhysicsSettings;
+    PinShortcutService: PinShortcutService;
     PlaceAssetIdsService: PlaceAssetIdsService;
     PlacesService: PlacesService;
     PlaceStatsService: PlaceStatsService;
@@ -165,6 +172,7 @@ interface Services {
     PluginManagementService: PluginManagementService;
     PluginPolicyService: PluginPolicyService;
     PolicyService: PolicyService;
+    PopLatencyService: PopLatencyService;
     Preloaded: Preloaded;
     ProceduralBehaviorSchedulerService: ProceduralBehaviorSchedulerService;
     ProcessInstancePhysicsService: ProcessInstancePhysicsService;
@@ -178,6 +186,7 @@ interface Services {
     RenderSettings: RenderSettings;
     ReplicatedFirst: ReplicatedFirst;
     ReplicatedStorage: ReplicatedStorage;
+    RequestOrchestratorService: RequestOrchestratorService;
     RibbonNotificationService: RibbonNotificationService;
     RobloxPluginGuiService: RobloxPluginGuiService;
     RobloxServerStorage: RobloxServerStorage;
@@ -277,6 +286,7 @@ interface Services {
     VRStatusService: VRStatusService;
     WebSocketService: WebSocketService;
     WebViewService: WebViewService;
+    WindowProtocolService: WindowProtocolService;
     Workspace: Workspace;
     WrapDeformMeshProvider: WrapDeformMeshProvider;
 }
@@ -328,6 +338,7 @@ interface CreatableInstances {
     AudioSpeechToText: AudioSpeechToText;
     AudioTextToSpeech: AudioTextToSpeech;
     AudioTremolo: AudioTremolo;
+    AuroraScript: AuroraScript;
     AvatarAbilityRules: AvatarAbilityRules;
     AvatarAccessoryRules: AvatarAccessoryRules;
     AvatarAnimationRules: AvatarAnimationRules;
@@ -434,6 +445,7 @@ interface CreatableInstances {
     InputBinding: InputBinding;
     InputContext: InputContext;
     IntConstrainedValue: IntConstrainedValue;
+    InternalSyncItem: InternalSyncItem;
     IntersectOperation: IntersectOperation;
     IntValue: IntValue;
     Keyframe: Keyframe;
@@ -467,6 +479,7 @@ interface CreatableInstances {
     ParticleEmitter: ParticleEmitter;
     PartOperation: PartOperation;
     Path2D: Path2D;
+    Path3D: Path3D;
     PathfindingLink: PathfindingLink;
     PathfindingModifier: PathfindingModifier;
     PitchShiftSoundEffect: PitchShiftSoundEffect;
@@ -655,6 +668,7 @@ interface Instances extends Services, CreatableInstances {
     DebuggerLuaResponse: DebuggerLuaResponse;
     DebuggerVariable: DebuggerVariable;
     DebuggerWatch: DebuggerWatch;
+    DisplayWakeLock: DisplayWakeLock;
     DockWidgetPluginGui: DockWidgetPluginGui;
     DynamicRotate: DynamicRotate;
     ExplorerFilterAutocompleter: ExplorerFilterAutocompleter;
@@ -807,6 +821,7 @@ interface Objects extends Instances {
     EditableImage: EditableImage;
     EditableMesh: EditableMesh;
     ExecutedRemoteCommand: ExecutedRemoteCommand;
+    LuauExpression: LuauExpression;
     MLSession: MLSession;
     Object: RBXObject;
     OutputLink: OutputLink;
@@ -1134,7 +1149,7 @@ interface AdPortal extends Instance {
     readonly _nominal_AdPortal: unique symbol;
 }
 /**
- * A class that allows the display of mobile video ads.
+ * The service responsible for in-experience advertising.
  *
  * - **Tags**: NotCreatable, Service
  *
@@ -1280,7 +1295,7 @@ interface AnimationClipProvider extends Instance {
      * @param assetId The content ID of the animation.
      * @returns The `AnimationClip` found.
      *
-     * @deprecated
+     * @deprecated GetAnimationClipAsync
      */
     GetAnimationClip(this: AnimationClipProvider, assetId: ContentId): AnimationClip;
     /**
@@ -1297,7 +1312,7 @@ interface AnimationClipProvider extends Instance {
      * @param useCache True if a cached version can be returned.
      * @returns The `AnimationClip` found.
      *
-     * @deprecated
+     * @deprecated GetAnimationClipAsync
      */
     GetAnimationClipById(this: AnimationClipProvider, assetId: number, useCache: boolean): AnimationClip;
 }
@@ -2096,6 +2111,40 @@ interface AuroraScriptObject extends Instance {
     readonly _nominal_AuroraScriptObject: unique symbol;
 }
 /**
+ * - **Tags**: NotCreatable, Service
+ *
+ * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/AuroraScriptService)
+ *
+ * @deprecated
+ */
+interface AuroraScriptService extends Instance {
+    /**
+     * **DO NOT USE!**
+     *
+     * This field exists to force TypeScript to recognize this as a nominal type
+     * @hidden
+     * @deprecated
+     */
+    readonly _nominal_AuroraScriptService: unique symbol;
+}
+/**
+ * - **Tags**: NotCreatable, Service
+ *
+ * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/AuroraService)
+ *
+ * @deprecated
+ */
+interface AuroraService extends Instance {
+    /**
+     * **DO NOT USE!**
+     *
+     * This field exists to force TypeScript to recognize this as a nominal type
+     * @hidden
+     * @deprecated
+     */
+    readonly _nominal_AuroraService: unique symbol;
+}
+/**
  * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/AvatarAbilityRules)
  */
 interface AvatarAbilityRules extends Instance {
@@ -2820,7 +2869,7 @@ interface BodyMover extends Instance {
  *
  * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/BodyAngularVelocity)
  *
- * @deprecated
+ * @deprecated AngularVelocity
  */
 interface BodyAngularVelocity extends BodyMover {
     /**
@@ -2841,7 +2890,7 @@ interface BodyAngularVelocity extends BodyMover {
  *
  * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/BodyForce)
  *
- * @deprecated
+ * @deprecated VectorForce
  */
 interface BodyForce extends BodyMover {
     /**
@@ -2862,7 +2911,7 @@ interface BodyForce extends BodyMover {
  *
  * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/BodyGyro)
  *
- * @deprecated
+ * @deprecated AlignOrientation
  */
 interface BodyGyro extends BodyMover {
     /**
@@ -2883,7 +2932,7 @@ interface BodyGyro extends BodyMover {
  *
  * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/BodyPosition)
  *
- * @deprecated
+ * @deprecated AlignPosition
  */
 interface BodyPosition extends BodyMover {
     /**
@@ -2904,7 +2953,7 @@ interface BodyPosition extends BodyMover {
  *
  * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/BodyThrust)
  *
- * @deprecated
+ * @deprecated VectorForce
  */
 interface BodyThrust extends BodyMover {
     /**
@@ -2925,7 +2974,7 @@ interface BodyThrust extends BodyMover {
  *
  * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/BodyVelocity)
  *
- * @deprecated
+ * @deprecated LinearVelocity
  */
 interface BodyVelocity extends BodyMover {
     /**
@@ -2946,7 +2995,7 @@ interface BodyVelocity extends BodyMover {
  *
  * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/RocketPropulsion)
  *
- * @deprecated
+ * @deprecated LineForce
  */
 interface RocketPropulsion extends BodyMover {
     /**
@@ -3760,7 +3809,7 @@ interface PlaneConstraint extends Constraint {
  *
  * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/Plane)
  *
- * @deprecated
+ * @deprecated PlaneConstraint
  */
 interface Plane extends PlaneConstraint {
     /**
@@ -4787,6 +4836,21 @@ interface DesignFoundationsService extends Instance {
 /**
  * - **Tags**: NotCreatable, Service, NotReplicated
  *
+ * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/DeviceDisplayService)
+ */
+interface DeviceDisplayService extends Instance {
+    /**
+     * **DO NOT USE!**
+     *
+     * This field exists to force TypeScript to recognize this as a nominal type
+     * @hidden
+     * @deprecated
+     */
+    readonly _nominal_DeviceDisplayService: unique symbol;
+}
+/**
+ * - **Tags**: NotCreatable, Service, NotReplicated
+ *
  * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/DeviceIdService)
  */
 interface DeviceIdService extends Instance {
@@ -4845,6 +4909,21 @@ interface DigitsRigDescription extends Instance {
     readonly _nominal_DigitsRigDescription: unique symbol;
 }
 /**
+ * - **Tags**: NotCreatable, NotReplicated
+ *
+ * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/DisplayWakeLock)
+ */
+interface DisplayWakeLock extends Instance {
+    /**
+     * **DO NOT USE!**
+     *
+     * This field exists to force TypeScript to recognize this as a nominal type
+     * @hidden
+     * @deprecated
+     */
+    readonly _nominal_DisplayWakeLock: unique symbol;
+}
+/**
  * A helper object used to create tools that can drag parts.
  *
  * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/Dragger)
@@ -4888,6 +4967,21 @@ interface EditableService extends Instance {
      * @deprecated
      */
     readonly _nominal_EditableService: unique symbol;
+}
+/**
+ * - **Tags**: NotCreatable, Service, NotReplicated
+ *
+ * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/EditorSourceService)
+ */
+interface EditorSourceService extends Instance {
+    /**
+     * **DO NOT USE!**
+     *
+     * This field exists to force TypeScript to recognize this as a nominal type
+     * @hidden
+     * @deprecated
+     */
+    readonly _nominal_EditorSourceService: unique symbol;
 }
 /**
  * Service providing common encoding, hashing, and compression methods.
@@ -6001,7 +6095,7 @@ interface GameSettings extends Instance {
      */
     readonly _nominal_GameSettings: unique symbol;
     /**
-     * **Deprecated:**
+     * **Deprecated:** This property is deprecated. Do not use it for new work.
      *
      * - **ThreadSafety**: ReadSafe
      * - **Tags**:
@@ -6254,7 +6348,7 @@ interface GuiObject extends GuiBase2d {
     readonly _nominal_GuiObject: unique symbol;
 }
 /**
- * Blends descendants as a group with color/transparency.
+ * Blends descendants as a flattened group with an optional color/transparency modification.
  *
  * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/CanvasGroup)
  */
@@ -7626,6 +7720,36 @@ interface InternalMessagingServiceVerifier extends Instance {
     readonly _nominal_InternalMessagingServiceVerifier: unique symbol;
 }
 /**
+ * - **Tags**: NotReplicated
+ *
+ * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/InternalSyncItem)
+ */
+interface InternalSyncItem extends Instance {
+    /**
+     * **DO NOT USE!**
+     *
+     * This field exists to force TypeScript to recognize this as a nominal type
+     * @hidden
+     * @deprecated
+     */
+    readonly _nominal_InternalSyncItem: unique symbol;
+}
+/**
+ * - **Tags**: NotCreatable, Service, NotReplicated
+ *
+ * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/InternalSyncService)
+ */
+interface InternalSyncService extends Instance {
+    /**
+     * **DO NOT USE!**
+     *
+     * This field exists to force TypeScript to recognize this as a nominal type
+     * @hidden
+     * @deprecated
+     */
+    readonly _nominal_InternalSyncService: unique symbol;
+}
+/**
  * The base class for joints.
  *
  * - **Tags**: NotCreatable
@@ -7666,7 +7790,7 @@ interface DynamicRotate extends JointInstance {
  *
  * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/RotateP)
  *
- * @deprecated
+ * @deprecated HingeConstraint
  */
 interface RotateP extends DynamicRotate {
     /**
@@ -7685,7 +7809,7 @@ interface RotateP extends DynamicRotate {
  *
  * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/RotateV)
  *
- * @deprecated
+ * @deprecated HingeConstraint
  */
 interface RotateV extends DynamicRotate {
     /**
@@ -7706,7 +7830,7 @@ interface RotateV extends DynamicRotate {
  *
  * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/Glue)
  *
- * @deprecated
+ * @deprecated WeldConstraint
  */
 interface Glue extends JointInstance {
     /**
@@ -7727,7 +7851,7 @@ interface Glue extends JointInstance {
  *
  * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/ManualSurfaceJointInstance)
  *
- * @deprecated
+ * @deprecated WeldConstraint
  */
 interface ManualSurfaceJointInstance extends JointInstance {
     /**
@@ -7748,7 +7872,7 @@ interface ManualSurfaceJointInstance extends JointInstance {
  *
  * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/ManualGlue)
  *
- * @deprecated
+ * @deprecated WeldConstraint
  */
 interface ManualGlue extends ManualSurfaceJointInstance {
     /**
@@ -7769,7 +7893,7 @@ interface ManualGlue extends ManualSurfaceJointInstance {
  *
  * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/ManualWeld)
  *
- * @deprecated
+ * @deprecated WeldConstraint
  */
 interface ManualWeld extends ManualSurfaceJointInstance {
     /**
@@ -7818,7 +7942,7 @@ interface Motor6D extends Motor {
  *
  * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/Rotate)
  *
- * @deprecated
+ * @deprecated HingeConstraint
  */
 interface Rotate extends JointInstance {
     /**
@@ -7839,7 +7963,7 @@ interface Rotate extends JointInstance {
  *
  * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/Snap)
  *
- * @deprecated
+ * @deprecated WeldConstraint
  */
 interface Snap extends JointInstance {
     /**
@@ -7957,7 +8081,7 @@ interface KeyframeSequenceProvider extends Instance {
      * @param assetId The content ID of the animation.
      * @returns The `KeyframeSequence` found.
      *
-     * @deprecated
+     * @deprecated GetKeyframeSequenceAsync
      */
     GetKeyframeSequence(this: KeyframeSequenceProvider, assetId: ContentId): Instance | undefined;
     /**
@@ -7974,7 +8098,7 @@ interface KeyframeSequenceProvider extends Instance {
      * @param useCache True if a cached version can be returned.
      * @returns The `KeyframeSequence` found.
      *
-     * @deprecated
+     * @deprecated GetKeyframeSequenceAsync
      */
     GetKeyframeSequenceById(this: KeyframeSequenceProvider, assetId: number, useCache: boolean): Instance | undefined;
 }
@@ -8259,6 +8383,23 @@ interface LuaSourceContainer extends Instance {
     readonly _nominal_LuaSourceContainer: unique symbol;
 }
 /**
+ * - **Tags**:
+ *
+ * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/AuroraScript)
+ *
+ * @deprecated
+ */
+interface AuroraScript extends LuaSourceContainer {
+    /**
+     * **DO NOT USE!**
+     *
+     * This field exists to force TypeScript to recognize this as a nominal type
+     * @hidden
+     * @deprecated
+     */
+    readonly _nominal_AuroraScript: unique symbol;
+}
+/**
  * The base class for all script objects which run automatically.
  *
  * - **Tags**: NotCreatable
@@ -8327,6 +8468,21 @@ interface ModuleScript extends LuaSourceContainer {
      * @deprecated
      */
     readonly _nominal_ModuleScript: unique symbol;
+}
+/**
+ * - **Tags**: NotCreatable, Service, NotReplicated
+ *
+ * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/LuauExpressionService)
+ */
+interface LuauExpressionService extends Instance {
+    /**
+     * **DO NOT USE!**
+     *
+     * This field exists to force TypeScript to recognize this as a nominal type
+     * @hidden
+     * @deprecated
+     */
+    readonly _nominal_LuauExpressionService: unique symbol;
 }
 /**
  * - **Tags**: NotCreatable, Service, NotReplicated
@@ -9110,7 +9266,7 @@ interface OmniRecommendationsService extends Instance {
  *
  * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/OpenCloudApiV1)
  *
- * @deprecated
+ * @deprecated HttpService
  */
 interface OpenCloudApiV1 extends Instance {
     /**
@@ -9129,7 +9285,7 @@ interface OpenCloudApiV1 extends Instance {
  *
  * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/OpenCloudService)
  *
- * @deprecated
+ * @deprecated HttpService
  */
 interface OpenCloudService extends Instance {
     /**
@@ -9722,7 +9878,7 @@ interface Workspace extends WorldRoot {
      */
     ApplyRecommendedStreamingSettings(this: Workspace): boolean;
     /**
-     * **Deprecated:**
+     * **Deprecated:** This method is deprecated. Do not use it for new work.
      *
      * Goes through all `BaseParts` given, breaking any joints connected to these parts.
      *
@@ -9737,7 +9893,7 @@ interface Workspace extends WorldRoot {
      */
     readonly BreakJoints: never;
     /**
-     * **Deprecated:**
+     * **Deprecated:** This method is deprecated. Do not use it for new work.
      *
      * Goes through all `BaseParts` given. If any part's side has a `SurfaceType` that can make a joint it will create a joint with any adjacent parts.
      *
@@ -10178,6 +10334,19 @@ interface Path extends Instance {
     readonly _nominal_Path: unique symbol;
 }
 /**
+ * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/Path3D)
+ */
+interface Path3D extends Instance {
+    /**
+     * **DO NOT USE!**
+     *
+     * This field exists to force TypeScript to recognize this as a nominal type
+     * @hidden
+     * @deprecated
+     */
+    readonly _nominal_Path3D: unique symbol;
+}
+/**
  * Connects two locations which otherwise by default are unconnected.
  *
  * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/PathfindingLink)
@@ -10520,6 +10689,21 @@ interface PhysicsSettings extends Instance {
      * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/PhysicsSettings#UseCSGv2)
      */
     UseCSGv2: boolean;
+}
+/**
+ * - **Tags**: NotCreatable, Service, NotReplicated
+ *
+ * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/PinShortcutService)
+ */
+interface PinShortcutService extends Instance {
+    /**
+     * **DO NOT USE!**
+     *
+     * This field exists to force TypeScript to recognize this as a nominal type
+     * @hidden
+     * @deprecated
+     */
+    readonly _nominal_PinShortcutService: unique symbol;
 }
 /**
  * - **Tags**: NotCreatable, Service
@@ -11063,7 +11247,7 @@ interface Plugin extends Instance {
      * @param pluginGuiId A unique and consistent identifier used to storing the widget's dock state and other internal details.
      * @param dockWidgetPluginGuiInfo Describes the `DockWidgetPluginGui` to create (initial state, size, etc).
      *
-     * @deprecated
+     * @deprecated CreateDockWidgetPluginGuiAsync
      */
     CreateDockWidgetPluginGui(this: Plugin, pluginGuiId: string, dockWidgetPluginGuiInfo: DockWidgetPluginGuiInfo): DockWidgetPluginGui;
     /**
@@ -11091,7 +11275,7 @@ interface Plugin extends Instance {
      * @param rigModel
      * @param isR15
      *
-     * @deprecated
+     * @deprecated ImportFbxAnimationAsync
      */
     ImportFbxAnimation(this: Plugin, rigModel: Instance, isR15?: boolean): Instance | undefined;
     /**
@@ -11118,7 +11302,7 @@ interface Plugin extends Instance {
      * @param this
      * @param isR15
      *
-     * @deprecated
+     * @deprecated ImportFbxRigAsync
      */
     ImportFbxRig(this: Plugin, isR15?: boolean): Model;
     /**
@@ -11133,25 +11317,25 @@ interface Plugin extends Instance {
      */
     ImportFbxRigAsync(this: Plugin, isR15?: boolean): Instance | undefined;
     /**
-     * Opens a window in Roblox Studio which prompts the user to select an asset based on the `assetType` specified.
+     * Opens a window in Roblox Studio that prompts the user to select an existing `AssetType.Animation` asset. The `assetType` parameter must be `Animation`; other values are not supported and cause an error.
      *
      * - **ThreadSafety**: Unsafe
      * - **Tags**: Yields
      *
      * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/Plugin#PromptForExistingAssetId)
      * @param this
-     * @param assetType
+     * @param assetType The asset type to browse. Only `Animation` is supported.
      */
     PromptForExistingAssetId(this: Plugin, assetType: string): number;
     /**
-     * Opens a window in Roblox Studio which prompts the user to select an asset based on the `assetType` specified.
+     * Opens a window in Roblox Studio that prompts the user to select an existing `AssetType.Animation` asset. The `assetType` parameter must be `Animation`; other values are not supported and cause an error.
      *
      * - **ThreadSafety**: Unsafe
      * - **Tags**: Yields
      *
      * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/Plugin#PromptForExistingAssetIdAsync)
      * @param this
-     * @param assetType
+     * @param assetType The asset type to browse. Only `Animation` is supported.
      */
     PromptForExistingAssetIdAsync(this: Plugin, assetType: string): number;
     /**
@@ -11166,7 +11350,7 @@ interface Plugin extends Instance {
      * @param this
      * @param suggestedFileName
      *
-     * @deprecated
+     * @deprecated PromptSaveSelectionAsync
      */
     PromptSaveSelection(this: Plugin, suggestedFileName?: string): boolean;
     /**
@@ -11563,6 +11747,21 @@ interface PolicyService extends Instance {
      * @deprecated
      */
     readonly _nominal_PolicyService: unique symbol;
+}
+/**
+ * - **Tags**: NotCreatable, Service, NotReplicated
+ *
+ * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/PopLatencyService)
+ */
+interface PopLatencyService extends Instance {
+    /**
+     * **DO NOT USE!**
+     *
+     * This field exists to force TypeScript to recognize this as a nominal type
+     * @hidden
+     * @deprecated
+     */
+    readonly _nominal_PopLatencyService: unique symbol;
 }
 /**
  * Base class of all 'Pose Instance' objects.
@@ -12119,6 +12318,21 @@ interface ReplicatedStorage extends Instance {
      * @deprecated
      */
     readonly _nominal_ReplicatedStorage: unique symbol;
+}
+/**
+ * - **Tags**: NotCreatable, Service, NotReplicated
+ *
+ * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/RequestOrchestratorService)
+ */
+interface RequestOrchestratorService extends Instance {
+    /**
+     * **DO NOT USE!**
+     *
+     * This field exists to force TypeScript to recognize this as a nominal type
+     * @hidden
+     * @deprecated
+     */
+    readonly _nominal_RequestOrchestratorService: unique symbol;
 }
 /**
  * - **Tags**: NotCreatable, Service, NotReplicated
@@ -12886,6 +13100,13 @@ interface ScriptDocument extends Instance {
      * @param anchorCharacter
      */
     RequestSetSelectionAsync(this: ScriptDocument, cursorLine: number, cursorCharacter: number, anchorLine?: number, anchorCharacter?: number): unknown;
+    /**
+     * - **ThreadSafety**: Unsafe
+     * - **Tags**: Yields
+     *
+     * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/ScriptDocument#ReviewableTextEditsAsync)
+     */
+    ReviewableTextEditsAsync(this: ScriptDocument, changes: Array<unknown>): unknown;
     /**
      * Fires when the ScriptDocument changes, including immediately after a text change.
      *
@@ -15609,7 +15830,7 @@ interface StudioService extends Instance {
      * @param fileTypeFilter A list of file types that the user is allowed to select. File types are formatted without a period. For example, {"jpg", "png"} would allow only a JPG or PNG file to be selected. If no filter is provided, the filter is `nil` and allows the user to select any file type.
      * @returns The imported `File`. Returns `nil` if no files were selected, or if the selected file was too large (FileSize greater than 100 megabytes).
      *
-     * @deprecated
+     * @deprecated PromptImportFileAsync
      */
     PromptImportFile(this: StudioService, fileTypeFilter?: Array<unknown>): Instance | undefined;
     /**
@@ -15637,7 +15858,7 @@ interface StudioService extends Instance {
      * @param fileTypeFilter A list of file types that the user is allowed to select. File types are formatted without a period. For example, {"jpg", "png"} would allow only JPG and PNG files to be selected. If no filter is provided, the filter is `nil` and allows the user to select any file type.
      * @returns The imported `Files`. Returns an empty list if no files were selected. Returns `nil` if the user selected one or more files that were too large (FileSize greater than 100 megabytes).
      *
-     * @deprecated
+     * @deprecated PromptImportFilesAsync
      */
     PromptImportFiles(this: StudioService, fileTypeFilter?: Array<unknown>): Array<Instance>;
     /**
@@ -16302,7 +16523,7 @@ interface TestService extends Instance {
      */
     readonly _nominal_TestService: unique symbol;
     /**
-     * **Deprecated:**
+     * **Deprecated:** Use `RunAsync()` instead.
      *
      * Runs scripts which are parented to `TestService`.
      *
@@ -16312,7 +16533,7 @@ interface TestService extends Instance {
      * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/TestService#Run)
      * @param this A service used by Roblox to run controlled tests of the engine. It is available for developers to use, to a limited degree.
      *
-     * @deprecated
+     * @deprecated RunAsync
      */
     Run(this: TestService): void;
     /**
@@ -17833,6 +18054,21 @@ interface WeldConstraint extends Instance {
     readonly _nominal_WeldConstraint: unique symbol;
 }
 /**
+ * - **Tags**: NotCreatable, Service, NotReplicated
+ *
+ * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/WindowProtocolService)
+ */
+interface WindowProtocolService extends Instance {
+    /**
+     * **DO NOT USE!**
+     *
+     * This field exists to force TypeScript to recognize this as a nominal type
+     * @hidden
+     * @deprecated
+     */
+    readonly _nominal_WindowProtocolService: unique symbol;
+}
+/**
  * Connects one or more `Instances` to form a processing graph of their streams. At the moment, only audio streams are supported, but this may expand in the future.
  *
  * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/Wire)
@@ -17876,6 +18112,21 @@ interface WrapTextureTransfer extends Instance {
      * @deprecated
      */
     readonly _nominal_WrapTextureTransfer: unique symbol;
+}
+/**
+ * - **Tags**: NotCreatable
+ *
+ * [Creator Hub](https://create.roblox.com/docs/reference/engine/classes/LuauExpression)
+ */
+interface LuauExpression extends RBXObject {
+    /**
+     * **DO NOT USE!**
+     *
+     * This field exists to force TypeScript to recognize this as a nominal type
+     * @hidden
+     * @deprecated
+     */
+    readonly _nominal_LuauExpression: unique symbol;
 }
 /**
  * - **Tags**: NotCreatable, NotReplicated
